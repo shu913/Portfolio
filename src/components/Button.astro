@@ -1,0 +1,12 @@
+---
+export interface Props {
+	href: string;
+  className?: string;
+}
+
+const { href, className } = Astro.props;
+---
+
+<a href=`${href}` target="_blank" class:list={["inline-flex gap-x-2.5 bg-white px-2.5 py-0.5 text-xl font-medium text-black hover:bg-green-500 transition-colors duration-100 ease-out js-type-shuffle", className]}>
+  <slot />
+</a>

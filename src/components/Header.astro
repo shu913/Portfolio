@@ -1,0 +1,82 @@
+---
+const { pathname } = Astro.url;
+---
+
+<!--
+40 / 1600 * 100 = 2.5vw
+32 / 1280 * 100 = 2.5vw
+16 / 400 * 100 = 4vw
+
+20 / 1600 * 100 = 1.25vw
+16 / 1280 * 100 = 1.25vw
+16 / 400 * 100 = 4vw
+-->
+<header class="sticky top-0 z-header my-gutter-y-0.5 flex items-center justify-between gap-gutter-x bg-black px-gutter-x py-gutter-y-0.5">
+  <h1 class="w-[150px] h-[32px]">Shuji Watanabe</h1>
+  <!-- 66 / 16 = 4.125rem -->
+  <button id="menu-toggle" class="js-type-shuffle min-w-[4.125rem] border border-white px-[0.5em] text-white transition-colors duration-100 ease-out hover:border-green-500 hover:text-green-500 hidden" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav id="menu" class="absolute inset-x-0 top-full h-[calc(100vh-32px-theme(spacing.gutter-y))] overflow-y-auto overscroll-contain bg-black px-gutter-x pb-gutter-y pt-gutter-y-0.5 transition-opacity duration-100 ease-out aria-hidden:invisible aria-hidden:opacity-0 lg:visible lg:relative lg:h-auto lg:p-0" aria-hidden="true" aria-label="header menu">
+    <ul class="grid gap-y-2 text-4xl font-medium text-white lg:flex lg:text-base lg:font-normal">
+      {
+        [
+          { label: 'Home', href: '/' },
+          { label: 'About', href: '/#about' },
+          { label: 'Works', href: '/#works' },
+          { label: 'Skill', href: '/#skill' },
+          { label: 'Blog', href: '/#blog' },
+          { label: 'Contact', href: 'mailto:00sss91327@gmail.com', className: 'lg:border lg:border-white lg:ml-5 lg:!px-2 lg:hover:border-green-500' },
+        ].map(({ label, href, className }) => {
+          const isCurrent = href === '/' ? pathname === '/' : pathname.startsWith(href);
+          return (
+            <li>
+              <a href={href} class:list={['lg:flex lg:px-5 hover:text-green-500 transition-colors duration-100 ease-out gap-[0.5em] js-menu-type-shuffle', isCurrent && 'lg:before:content-["["] lg:after:content-["]"]', className,]}>{label}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  import { TypeShuffle } from '../scripts/typeShuffle';
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+  const textElements = document.querySelectorAll('.js-menu-type-shuffle');
+
+  const menuTypeShuffle = [] as TypeShuffle[];
+
+  textElements.forEach((textElement, i) => {
+    menuTypeShuffle.push(new TypeShuffle(textElement));
+    menuTypeShuffle[i].trigger('fx6');
+  });
+
+  if (menuToggle && menu) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') !== 'true';
+      menuToggle.innerText = isOpen ? 'Close' : 'Menu'
+      menuToggle.setAttribute('aria-expanded', `${isOpen}`);
+      menu.setAttribute('aria-hidden', `${!isOpen}`);
+      if (isOpen) {
+        menuTypeShuffle.forEach((ts) => {
+          ts.trigger('fx6');
+        });
+      }
+    });
+  }
+
+  const mql = window.matchMedia('(min-width: 1024px)');
+  function updateAriaHidden(mq: MediaQueryList | MediaQueryListEvent) {
+    const isOpen = menuToggle?.getAttribute('aria-expanded') === 'true';
+    if (mq.matches) {
+      menu?.setAttribute('aria-hidden', 'false');
+    } else {
+      menu?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    }
+  }
+  updateAriaHidden(mql);
+  mql.addEventListener('change', (e) => {
+    updateAriaHidden(e);
+  });
+</script>

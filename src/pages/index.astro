@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="Shuji Watanabe">
+	<main>
+    <div class="flex min-h-[calc(120vh-(32px+theme(spacing.gutter-y)*2))] flex-col px-gutter-x">
+      <!--
+      最大サイズ 80 / 1600 * 100 = 5vw
+      最小サイズ 64 / 16 = 4rem
+      -->
+      <h1 class="js-type-shuffle invisible text-[max(5vw,4rem)] font-bold leading-none text-white" data-max-cell-iterations="10">Portfolio</h1>
+      <!--
+      レスポンシブデザイン
+      740 / 16 = 46.25rem
+      592 / 16 = 37rem スクロールバーを考慮して36rem
+      -->
+      <p class="js-type-shuffle invisible mt-gutter-y-0.5 min-w-[calc((100%-theme(spacing.gutter-x))/2)] max-w-[36rem] text-lg" data-max-cell-iterations="15">
+      </p>
+      <figure class="relative mt-gutter-y min-h-[20rem] grow">
+        <img class="absolute h-full w-full object-cover" src="/images/img-6.jpg" alt="" width="1920" height="940">
+      </figure>
+    </div>
+
+    <section class="px-gutter-x pb-gutter-y pt-gutter-y-2">
+      <!-- 64 / 1600 * 100 = 4vw -->
+      <!-- 51.2 / 1280 * 100 = 4vw -->
+      <h2 class="js-type-shuffle" id="about">About</h2>
+      <div class="ml-auto min-w-[calc((100%-theme(spacing.gutter-x))/2)] max-w-[36rem]">
+        <p class="js-type-shuffle mt-gutter-y">
+          Born in Japan in 1998. I develop and create Website. I believe web can be more diverse and inspiring. I am pursuing new expressions through experiments and thoughts.
+          <br />
+          <br />
+          2017~2020 Senshu University School of Network Information, dropped out
+          <br />
+          <br />
+          2021~2023 FjordBootCamp Programming School
+          <br />
+          <br />
+          2023~ WebGL School
+        </p>
+      </div>
+      <!-- 128 / 1600 * 100 = 8vw -->
+      <!-- 102.4 / 1280 * 100 = 8vw -->
+      <div class="mx-gutter-x mt-gutter-y overflow-hidden">
+        <div class="w-fit animate-[marquee_100s_linear_infinite] whitespace-nowrap text-[max(8vw,6.4rem)] font-bold leading-none text-neutral-800" aria-hidden="true">
+          Profile. Shuji Watanabe. September 13, 1998. Chiba, Japan. Creative Coder. &nbsp;
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-t-neutral-500 px-gutter-x py-gutter-y-2">
+      <h2 class="js-type-shuffle" id="works">Works</h2>
+      <div class="lg:grid lg:grid-cols-2 lg:gap-x-gutter-x">
+        <ul class="mt-gutter-y grid grid-cols-3 gap-gutter-x lg:order-2">
+        {
+          [
+            {
+              name: 'Raycaster',
+              slug: 'Raycaster',
+            },
+            {
+              name: 'Quaternion',
+              slug: 'Quaternion',
+            },
+            {
+              name: 'Refraction',
+              slug: 'Refraction',
+            },
+          ].map(({ name, slug }) => {
+            return (
+              <li>
+                <a href={`https://github.com/shu913/${slug}/`} target="_blank" class="group">
+                <figure class="aspect-square border border-neutral-500 transition-colors duration-100 ease-out group-hover:border-green-500">
+                  <img src={`/images/icon-${slug}.png`} alt="" width="200" height="200" class="h-full w-full bg-white">
+                </figure>
+                <h3 class="js-type-shuffle mt-gutter-y-0.5 text-lg font-medium text-white">{name}</h3>
+                </a>
+              </li>
+            );
+          })
+        }
+        </ul>
+        <!-- 480 / 16 = 30rem -->
+        <div>
+          <p class="js-type-shuffle mt-gutter-y min-w-[calc((100%-theme(spacing.gutter-x)*2)/3*2+theme(spacing.gutter-x))] max-w-[30rem]">
+            WebGL Works. I learned about 3D graphic expression at WebGL school. I feel the future possibilities of the web by expressing natural physical phenomena such as light and shadow. By providing visual enjoyment to your website viewers, you can create a website that not only conveys information but also creates a memorable experience.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t border-t-neutral-500 px-gutter-x py-gutter-y-2">
+      <h2 class="js-type-shuffle" id="skill">Skill</h2>
+      <ul class="mt-gutter-y grid grid-cols-3 gap-x-gutter-x gap-y-gutter-y lg:grid-cols-6">
+        {
+          [
+            {
+              name: 'HTML',
+              slug: 'html',
+            },
+            {
+              name: 'CSS',
+              slug: 'css',
+            },
+            {
+              name: 'JavaScript',
+              slug: 'javascript',
+            },
+            {
+              name: 'Node.js',
+              slug: 'node',
+            },
+            {
+              name: 'Three.js',
+              slug: 'three',
+            },
+            {
+              name: 'WebGL',
+              slug: 'webgl',
+            },
+            {
+              name: 'Ruby',
+              slug: 'ruby',
+            },
+            {
+              name: 'Ruby on Rails',
+              slug: 'rails',
+            },
+            {
+              name: 'GitHub',
+              slug: 'github',
+            },
+          ].map(({ name, slug }) => {
+            return (
+              <li>
+                <figure class="aspect-square">
+                  <img src={`/images/${slug}.svg`} alt={`${name}s icon`} width="400" height="400" class="bg-white">
+                </figure>
+                <h3 class="js-type-shuffle mt-gutter-y-0.5 font-medium text-white">{name}</h3>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    <section class="border-t border-t-neutral-500 px-gutter-x py-gutter-y-2">
+      <h2 class="js-type-shuffle" id="blog">Blog</h2>
+      <ul class="mt-gutter-y border-t border-neutral-500">
+        {
+          [
+            {
+              date: 'September 7, 2023',
+              category: 'Three.js',
+              title: '三角関数sinとcosの基礎',
+              slug: 'https://zenn.dev/shuji_watanabe/articles/0319e9c0c2d87f',
+            },
+            {
+              date: 'June 15, 2023',
+              category: 'HTML',
+              title: 'Sample1',
+              slug: 'sample1/index.html',
+            },
+            {
+              date: 'September 7, 2023',
+              category: 'CSS',
+              title: 'Sample2',
+              slug: 'sample2/index.html',
+            },
+            {
+              date: 'November 22, 2023',
+              category: 'JavaScript',
+              title: 'Sample3',
+              slug: 'sample3/index.html',
+            },
+            {
+              date: 'January 12, 2024',
+              category: 'TypeScript',
+              title: 'Sample4',
+              slug: 'sample4/index.html',
+            },
+          ].map(({ date, category, title, slug }) => {
+            return (
+              <li class="js-type-shuffle border-b border-b-neutral-500">
+                <a href={`${slug}`} target="_blank" class="group grid gap-x-gutter-x gap-y-2 py-gutter-y-0.5 md:grid-cols-6">
+                  <div class="grid grid-cols-2 gap-x-gutter-x text-neutral-500 md:col-span-2">
+                    <p>{date}</p>
+                    <p>{category}</p>
+                  </div>
+                  <h3 class="font-medium transition-colors duration-100 ease-out group-hover:text-green-500 md:col-span-4">{title}</h3>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <Button className="mt-gutter-y" href="https://zenn.dev/shuji_watanabe">View All</Button>
+    </section>
+	</main>
+</Layout>
+
+<style>
+  h2 {
+    @apply text-[max(4vw,3.2rem)] font-bold leading-[1.125] text-white;
+  }
+</style>
